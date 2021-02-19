@@ -28,10 +28,16 @@ To start training a classifier ensemble, start `train_clf.py` from the commmand 
 python train_clfs.py --dir ./airbus-ship-detection/train_v2/ --csv ./airbus-ship-detection/train_ship_segmentations_v2.csv --model_type EFFICIENTNET-B0 --clf_out ./clf_out
 ```
 
-A similar command is used to train the meta-learner:
+A similar set of options can be used to train the meta-learner, e.g.:
 
 ```bash
-python train_meta.py --dir ./airbus-ship-detection/train_v2/ --csv ./airbus-ship-detection/train_ship_segmentations_v2.csv --model_type EFFICIENTNET-B0 --data_in ./clf_out
+python train_meta.py --dir ./airbus-ship-detection/train_v2/ --csv ./airbus-ship-detection/train_ship_segmentations_v2.csv --model_type EFFICIENTNET-B0 --data_in ./clf_out --data_out . --ens_num 10 --ens_type xgboost
+```
+
+Then the ensemble can be applied to classify the dataset:
+
+```bash
+python train_meta.py --dir ./airbus-ship-detection/train_v2/ --csv ./airbus-ship-detection/train_ship_segmentations_v2.csv --model_type EFFICIENTNET-B0 --data_in ./clf_out --ens_num 10 --ens_type xgboost
 ```
 
 Use command line option `--help` for more input options for training the classifiers and meta-learner.
